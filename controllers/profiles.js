@@ -97,17 +97,14 @@ async function addFriend(req, res) {
         const friend = await Profile.findOne({ user: req.body.id });
         const currentUser = await Profile.findOne({ user: req.user.id });
         if (!currentUser || !friend) return res.status(400).json({ msg: 'No Profile Found' });
-        console.log(friend)
-        console.log(currentUser)
-        if (friend == currentUser) return console.log('TRUE')
-        // res.status(400).json({ msg: 'Error: You cannot be friends with yourself' })
-        // for (let item of currentUser.friends) {
-        //     if (friend.user == item) return res.status(400).json({ msg: 'You are already friends with this user!' })
-        // }
-        // friend.friends.push(currentUser.user);
-        // currentUser.friends.push(friend.user);
-        // friend.save();
-        // currentUser.save();
+        if (String(friend) === String(currentUser)) return res.status(400).json({ msg: 'Error: You cannot be friends with yourself' })
+        for (let item of currentUser.friends) {
+            if (friend.user == item) return res.status(400).json({ msg: 'You are already friends with this user!' })
+        }
+        friend.friends.push(currentUser.user);
+        currentUser.friends.push(friend.user);
+        friend.save();
+        currentUser.save();
         res.json(currentUser)
     } catch(err){
         console.error(err);
@@ -136,6 +133,7 @@ async function removeFriend(req, res) {
 async function getAllFriends(req, res) {
     try {
         const user = await Profile.findOne({ user: req.user.id });
+        if (!user) return res.status(400).json({ msg: 'No Profile Found' })
         const friendsList = await User.find().where('_id').in(user.friends).exec();
         res.json(friendsList)
     } catch(err) {
