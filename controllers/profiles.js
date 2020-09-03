@@ -1,15 +1,21 @@
-const Profile = require('../models/Profile');
 const User = require('../models/User');
+const Profile = require('../models/Profile');
 const { validationResult } = require('express-validator');
 
 module.exports = {
+    getCurrentUserProfile,
+    createUserProfile,
+    getAll,
     getUserProfile,
-    createUserProfile
+    deleteProfile,
+    addFriend,
+    removeFriend,
+    getAllFriends
 }
 
-async function getUserProfile(req, res) {
+async function getCurrentUserProfile(req, res) {
     try {
-       const profile = await Profile.findById(req.user.id).populate('user', ['name']);
+       const profile = await Profile.findOne({user: req.user.id}).populate('User', ['name', 'friends']);
        if (!profile) return res.status(400).json({ msg: 'Profile not found' })
         res.json(profile)
     } catch(err) {
@@ -37,14 +43,11 @@ async function createUserProfile(req, res) {
 
     try {
         let profile = await Profile.findOne({ user: req.user.id });
-        console.log(req.user.id)
-        console.log(profile);
         if (profile) {
             profile = await Profile.findOneAndUpdate(
                     {user: req.user.id}, 
                     { $set: profileFields }, 
                     { new: true });
-            console.log(profile)
             return res.json(profile);
         }
         profile = new Profile(profileFields);
@@ -53,5 +56,90 @@ async function createUserProfile(req, res) {
     } catch(err) {
         console.error(err);
         res.status(500).send('Server Error');
+    }
+}
+
+async function getAll(req, res) {
+    try {
+        let profiles = await Profile.find().populate('User', ['name', 'friends']);
+        res.json(profiles);
+    } catch(err) {
+        console.error(err);
+        res.satus(500).send('Server Error');
+    }
+}
+
+async function getUserProfile(req, res) {
+    try {
+        let profile = await Profile.findOne({ user: req.params.id }).populate('User', ['name', 'friends']);
+        if (!profile) return res.status(400).json({ msg: 'No Profile Found' });
+        res.json(profile);
+    } catch(err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
+async function deleteProfile(req, res) {
+    try {
+        let profile = await Profile.findOne({ user: req.user.id });
+        if (!profile) return res.status(400).json({ msg: 'No Profile Found' });
+        let deletedProfile = await Profile.findOneAndDelete({ user: req.user.id });
+        res.json(deletedProfile);
+    } catch(err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
+async function addFriend(req, res) {
+    try {
+        const friend = await Profile.findOne({ user: req.body.id });
+        const currentUser = await Profile.findOne({ user: req.user.id });
+        if (!currentUser || !friend) return res.status(400).json({ msg: 'No Profile Found' });
+        console.log(friend)
+        console.log(currentUser)
+        if (friend == currentUser) return console.log('TRUE')
+        // res.status(400).json({ msg: 'Error: You cannot be friends with yourself' })
+        // for (let item of currentUser.friends) {
+        //     if (friend.user == item) return res.status(400).json({ msg: 'You are already friends with this user!' })
+        // }
+        // friend.friends.push(currentUser.user);
+        // currentUser.friends.push(friend.user);
+        // friend.save();
+        // currentUser.save();
+        res.json(currentUser)
+    } catch(err){
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
+async function removeFriend(req, res) {
+    try {
+        const user = await Profile.findOne({ user: req.user.id });
+        const deletedFriend = await Profile.findOne({ user: req.params.id });
+        const idxOfFriend = user.friends.indexOf(req.params.id);
+        const idxOfUser = deletedFriend.friends.indexOf(req.user.id);
+        if (idxOfFriend < 0 || idxOfUser < 0) return res.status(400).json({ msg: "Friend not found" })
+        user.friends.splice(idxOfFriend, 1);
+        deletedFriend.friends.splice(idxOfUser, 1);
+        user.save();
+        deletedFriend.save();
+        res.json(user)
+    } catch(err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
+async function getAllFriends(req, res) {
+    try {
+        const user = await Profile.findOne({ user: req.user.id });
+        const friendsList = await User.find().where('_id').in(user.friends).exec();
+        res.json(friendsList)
+    } catch(err) {
+        console.error(err);
+        res.status(500).send('Server Error')
     }
 }

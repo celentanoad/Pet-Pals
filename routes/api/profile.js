@@ -4,9 +4,11 @@ const auth = require('../../config/auth');
 const profileCtrl = require('../../controllers/profiles');
 const { check } = require('express-validator');
 
-// Private routes
-// GET api/profile/:id
-router.get('/:id', auth, profileCtrl.getUserProfile);
+/*  ----- Private Routes ----- */
+
+// GET api/profile/myprofile
+// Get current user's profile
+router.get('/myprofile', auth, profileCtrl.getCurrentUserProfile);
 
 // POST api/profile
 // Create or update profile
@@ -15,5 +17,31 @@ router.post('/', [auth, [
         .not()
         .isEmpty()
     ]], profileCtrl.createUserProfile);
+
+// DELETE api/profile/myprofile
+// Delete current user's profile
+router.delete('/myprofile', auth, profileCtrl.deleteProfile);
+
+// POST api/profile/friends
+// Add friend
+router.post('/friends', auth, profileCtrl.addFriend);
+
+// DELETE api/profile/friends/:id
+// Remove friend
+router.delete('/friends/:id', auth, profileCtrl.removeFriend);
+
+// GET api/profile/friends
+// Get all friends
+router.get('/friends', auth, profileCtrl.getAllFriends);
+
+/* ----- Public Routes ----- */
+// GET api/profile
+// Get all profiles
+router.get('/', profileCtrl.getAll);
+
+// GET api/profile/user/:id
+// Get profile by user ID
+router.get('/user/:id', profileCtrl.getUserProfile);
+
 
 module.exports = router;

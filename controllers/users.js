@@ -2,6 +2,7 @@ const User = require('../models/User');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const Profile = require('../models/Profile');
 const jwtToken = process.env.JWT_SECRET;
 
 module.exports = {
@@ -36,6 +37,6 @@ async function addUser(req, res) {
         });
     } catch(err) {
         console.err(err.message);
-        res.status(500).send('Server error');
+        res.status(500).send('Server Error');
     }
 }
