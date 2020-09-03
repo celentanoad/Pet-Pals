@@ -39,9 +39,9 @@ router.get('/friends', auth, profileCtrl.getAllFriends);
 // Get all profiles
 router.get('/', profileCtrl.getAll);
 
-// GET api/profile/user/:id
+// GET api/profile/:id
 // Get profile by user ID
-router.get('/user/:id', profileCtrl.getUserProfile);
+router.get('/:id', profileCtrl.getUserProfile);
 
 
 module.exports = router;

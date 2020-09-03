@@ -15,7 +15,7 @@ module.exports = {
 
 async function getCurrentUserProfile(req, res) {
     try {
-       const profile = await Profile.findOne({user: req.user.id}).populate('User', ['name', 'friends']);
+       const profile = await Profile.findOne({user: req.user.id}).populate('user');
        if (!profile) return res.status(400).json({ msg: 'Profile not found' })
         res.json(profile)
     } catch(err) {
@@ -61,7 +61,7 @@ async function createUserProfile(req, res) {
 
 async function getAll(req, res) {
     try {
-        let profiles = await Profile.find().populate('User', ['name', 'friends']);
+        let profiles = await Profile.find().populate('user');
         res.json(profiles);
     } catch(err) {
         console.error(err);
@@ -71,7 +71,7 @@ async function getAll(req, res) {
 
 async function getUserProfile(req, res) {
     try {
-        let profile = await Profile.findOne({ user: req.params.id }).populate('User', ['name', 'friends']);
+        let profile = await Profile.findOne({ user: req.params.id }).populate('user');
         if (!profile) return res.status(400).json({ msg: 'No Profile Found' });
         res.json(profile);
     } catch(err) {
@@ -134,7 +134,8 @@ async function getAllFriends(req, res) {
     try {
         const user = await Profile.findOne({ user: req.user.id });
         if (!user) return res.status(400).json({ msg: 'No Profile Found' })
-        const friendsList = await User.find().where('_id').in(user.friends).exec();
+        console.log(user.friends)
+        const friendsList = await Profile.find().where('user').in(user.friends).populate('user').exec();
         res.json(friendsList)
     } catch(err) {
         console.error(err);
