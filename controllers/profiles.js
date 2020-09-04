@@ -94,8 +94,10 @@ async function deleteProfile(req, res) {
 
 async function addFriend(req, res) {
     try {
-        const friend = await Profile.findOne({ user: req.body.id });
+        const friend = await Profile.findOne({ user: req.params.id });
+        console.log(friend);
         const currentUser = await Profile.findOne({ user: req.user.id });
+        console.log(currentUser);
         if (!currentUser || !friend) return res.status(400).json({ msg: 'No Profile Found' });
         if (String(friend) === String(currentUser)) return res.status(400).json({ msg: 'Error: You cannot be friends with yourself' })
         for (let item of currentUser.friends) {
@@ -118,6 +120,7 @@ async function removeFriend(req, res) {
         const deletedFriend = await Profile.findOne({ user: req.params.id });
         const idxOfFriend = user.friends.indexOf(req.params.id);
         const idxOfUser = deletedFriend.friends.indexOf(req.user.id);
+        console.log(idxOfUser)
         if (idxOfFriend < 0 || idxOfUser < 0) return res.status(400).json({ msg: "Friend not found" })
         user.friends.splice(idxOfFriend, 1);
         deletedFriend.friends.splice(idxOfUser, 1);

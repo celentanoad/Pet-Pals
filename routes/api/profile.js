@@ -24,7 +24,7 @@ router.delete('/myprofile', auth, profileCtrl.deleteProfile);
 
 // POST api/profile/friends
 // Add friend
-router.post('/friends', auth, profileCtrl.addFriend);
+router.post('/friends/:id', auth, profileCtrl.addFriend);
 
 // DELETE api/profile/friends/:id
 // Remove friend
