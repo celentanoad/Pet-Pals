@@ -134,7 +134,6 @@ async function getAllFriends(req, res) {
     try {
         const user = await Profile.findOne({ user: req.user.id });
         if (!user) return res.status(400).json({ msg: 'No Profile Found' })
-        console.log(user.friends)
         const friendsList = await Profile.find().where('user').in(user.friends).populate('user').exec();
         res.json(friendsList)
     } catch(err) {

@@ -11,6 +11,8 @@ router.post('/', [auth, [
     check('text', 'Text field is required')
         .not()
         .isEmpty()
-    ]], postCtrl.addPost)
+    ]], postCtrl.addPost);
+
+router.get('/', auth, postCtrl.getAllPosts);
 
 module.exports = router;
