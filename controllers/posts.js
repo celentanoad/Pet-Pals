@@ -9,7 +9,9 @@ module.exports = {
     getOnePost,
     getPostsByUser,
     deletePost,
-    updatePostLike
+    updatePostLike,
+    addComment,
+    deleteComment
 }
 
 async function addPost(req, res) {
@@ -102,6 +104,7 @@ async function updatePostLike(req, res) {
         if (!post) return res.json({ msg: 'Post does not exist' });
         const postUser = await Profile.findOne({ user: post.user });
         const loggedInUser = await Profile.findOne({ user: req.user.id }).populate('user'); 
+        if (!loggedInUser) return res.status(401).json({ msg: 'Not Authorized' });
         let authorized;
         for (friend of postUser.friends) {
             if (post.user.toString() === req.user.id || friend === req.user.id) {
@@ -129,6 +132,59 @@ async function updatePostLike(req, res) {
         } else {
             res.status(401).json({ msg: 'Not Authorized' });
         }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+}
+
+async function addComment(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) return res.json({ msg: 'Post does not exist' });
+        const postUser = await Profile.findOne({ user: post.user });
+        const loggedInUser = await Profile.findOne({ user: req.user.id }).populate('user'); 
+        if (!loggedInUser) return res.status(401).json({ msg: 'Not Authorized' });
+        let authorized;
+        for (friend of postUser.friends) {
+            if (post.user.toString() === req.user.id || friend === req.user.id) {
+                authorized = true;
+            }
+        }
+        if (authorized) {
+            const newComment = {
+                text: req.body.text,
+                name: loggedInUser.user.name,
+                user: req.user.id
+            }
+            post.comments.push(newComment);
+            await post.save();
+            res.json(post.comments)
+        } else {
+            return res.status(401).json({ msg: 'Not Authorized' });
+        }
+
+        
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+}
+
+async function deleteComment(req, res) {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) return res.status(404).json({ msg: 'Post does not exist' });
+        const comment = post.comments.find(comment => comment.id === req.params.comment_id)
+        if (!comment) return res.status(404).json({ msg: 'Comment does not exist' });
+        if (comment.user.toString() !== req.user.id) return res.status(401).json({ msg: 'Not Authorized' });
+        const commentIdx = post.comments.map(comment => comment.user.toString()).indexOf(req.user.id);
+        post.comments.splice(commentIdx, 1);
+        await post.save();
+        res.json(post.comments);
+        
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

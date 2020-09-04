@@ -34,4 +34,16 @@ router.delete('/:id', auth, postCtrl.deletePost);
 // Update posts when user "likes"
 router.put('/like/:id', auth, postCtrl.updatePostLike);
 
+// PUT to api/posts/comment/:id
+// Update posts when user comments
+router.put('/comment/:id', [auth, [
+    check('text', 'Text field is required')
+        .not()
+        .isEmpty()
+]], postCtrl.addComment);
+
+// DELETE to api/posts/comment/:id/:comment_id
+// Delete comment from post
+router.delete('/comment/:id/:comment_id', auth, postCtrl.deleteComment);
+
 module.exports = router;
