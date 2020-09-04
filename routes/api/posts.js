@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../../config/auth');
+const postCtrl = require('../../controllers/posts');
+const { check } = require('express-validator');
 
 
-// GET api/posts
-// Public route
-router.get('/', (req, res) => res.send('Post route'));
+/* ----- Private Routes ----- */
+// POST to api/posts
+router.post('/', [auth, [
+    check('text', 'Text field is required')
+        .not()
+        .isEmpty()
+    ]], postCtrl.addPost)
 
 module.exports = router;

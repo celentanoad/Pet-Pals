@@ -106,7 +106,7 @@ async function addFriend(req, res) {
         friend.save();
         currentUser.save();
         res.json(currentUser)
-    } catch(err){
+    } catch(err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
