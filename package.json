@@ -4,7 +4,7 @@
   "description": "Social network for pets",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
+    "start": "concurrently \"npm run server\" \"cd ./client && npm start\"",
     "server": "nodemon server"
   },
   "author": "Alanna Celentano",
@@ -16,9 +16,12 @@
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
     "gravatar": "^1.8.1",
+    "grommet": "^2.15.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.1",
-    "request": "^2.88.2"
+    "polished": "^3.6.6",
+    "request": "^2.88.2",
+    "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
