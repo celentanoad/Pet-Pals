@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grommet, Clock } from 'grommet';
 import './App.css';
+import NavBar from './components/NavBar';
 
 function App() {
+  const [user, setUser] = useState("Butter");
+  const [darkMode, setDarkMode] = useState("dark");
+
+  const toggleDarkMode = () => {
+    if (darkMode === "dark") setDarkMode("light");
+    else setDarkMode("dark");
+  }
+
   return (
-    <Grommet>
+    <Grommet themeMode={darkMode}>
+    <NavBar user={user} toggleDarkMode={toggleDarkMode} />
     <div>Welcome to Pet Pals</div>
-    <Clock 
-      type="digital" 
-      alignSelf="center" 
-      hourLimit="12"
-      margin="large"
-      size="xlarge"
-      />
+    {darkMode === "dark" ?
+    <div>Dark Mode is ON</div>
+      :
+      <div>Dark Mode is OFF</div>
+  }
     </Grommet>
   );
 }
