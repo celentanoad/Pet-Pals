@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Grommet, Clock } from 'grommet';
 import './App.css';
 import NavBar from './components/NavBar';
+import theme from './theme';
 
 function App() {
   const [user, setUser] = useState("Butter");
@@ -13,14 +14,9 @@ function App() {
   }
 
   return (
-    <Grommet themeMode={darkMode}>
-    <NavBar user={user} toggleDarkMode={toggleDarkMode} />
+    <Grommet theme={theme} themeMode={darkMode}>
+    <NavBar user={user} toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
     <div>Welcome to Pet Pals</div>
-    {darkMode === "dark" ?
-    <div>Dark Mode is ON</div>
-      :
-      <div>Dark Mode is OFF</div>
-  }
     </Grommet>
   );
 }

@@ -1,15 +1,17 @@
 import React from 'react';
 import { Header, Clock, Box, ResponsiveContext, Menu, Anchor, Button } from 'grommet';
-import { Grommet as GrommetIcon, Menu as MenuIcon } from 'grommet-icons';
+import { Menu as MenuIcon } from 'grommet-icons';
+import Brightness3Icon from '@material-ui/icons/Brightness3';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import './NavBar.css';
 
-const NavBar = ({user, toggleDarkMode}) => {
+const NavBar = ({user, toggleDarkMode, darkMode}) => {
     return ( 
         <>
         <Header pad="small" background="background-1">
             {user ?
             <>
             <Box justify="start">
-                <Button focusIndicator="false" size="xsmall" label="Toggle Dark Mode" onClick={toggleDarkMode}></Button>
                 <Clock 
                     type="digital"  
                     hourLimit={12}
@@ -21,6 +23,7 @@ const NavBar = ({user, toggleDarkMode}) => {
                 {size =>
                     size === 'small' ? (
                         <Box justify="end">
+                            <Button focusIndicator="false" onClick={toggleDarkMode}>{darkMode==="dark" ? <Brightness3Icon /> : <WbSunnyIcon />}</Button>
                             <Menu
                                 a11yTitle="Navigation Menu"
                                 dropProps={{ align: { top: 'bottom', right: 'right'}}}
@@ -42,11 +45,16 @@ const NavBar = ({user, toggleDarkMode}) => {
                             />
                         </Box>
                     ) : (
-                        <Box justify="end" direction="row" gap="medium">
-                            <Anchor href="#" label="My Profile" />
-                            <Anchor href="#" label="Friends" />
-                            <Anchor href="#" label="Meet New Pets" />
+                        <>
+                        <Box justify="end" direction="column">  
+                        <Button alignSelf="end" margin="medium" focusIndicator="false" size="xsmall" onClick={toggleDarkMode}>{darkMode==="dark" ? <Brightness3Icon /> : <WbSunnyIcon />}</Button>
+                            <Box justify="end" direction="row" gap="medium">
+                                <Anchor href="#" label="My Profile" />
+                                <Anchor href="#" label="Friends" />
+                                <Anchor href="#" label="Meet New Pets" />
+                            </Box>
                         </Box>
+                        </>
                     )
                 }
             </ResponsiveContext.Consumer>
@@ -58,7 +66,7 @@ const NavBar = ({user, toggleDarkMode}) => {
             hourLimit={12}
             size="small"
             />
-            <Button label="Toggle Dark Mode" onClick={toggleDarkMode}></Button>
+            <Button alignSelf="end" margin="medium" focusIndicator="false" size="xsmall" onClick={toggleDarkMode}>{darkMode==="dark" ? <Brightness3Icon /> : <WbSunnyIcon />}</Button>
             </>
         }
         </Header>
