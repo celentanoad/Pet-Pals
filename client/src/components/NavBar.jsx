@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header, Clock, Box, ResponsiveContext, Menu, Anchor, Button } from 'grommet';
-import { Menu as MenuIcon } from 'grommet-icons';
+import { Header, Nav, Clock, Box, ResponsiveContext, Menu, Anchor, Button } from 'grommet';
+import { Menu as MenuIcon, Home } from 'grommet-icons';
 import Brightness3Icon from '@material-ui/icons/Brightness3';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import './NavBar.css';
@@ -18,6 +18,7 @@ const NavBar = ({user, toggleDarkMode, darkMode}) => {
                     size="small"
                 />
             <p>Hello {user}!</p>
+            
             </Box>
             <ResponsiveContext.Consumer>
                 {size =>
@@ -66,12 +67,20 @@ const NavBar = ({user, toggleDarkMode, darkMode}) => {
             </>
             :
             <>
-            <Clock 
-            type="digital"  
-            hourLimit={12}
-            size="small"
-            />
-            <Button alignSelf="end" margin="medium" focusIndicator="false" size="xsmall" onClick={toggleDarkMode}>{darkMode==="dark" ? <Brightness3Icon /> : <WbSunnyIcon />}</Button>
+            <Box direction="column">
+                <Box direction="row" responsive="true">
+                    <Button alignSelf="end" margin="xsmall" focusIndicator="false" size="xsmall" onClick={toggleDarkMode}>{darkMode==="dark" ? <Brightness3Icon /> : <WbSunnyIcon />}</Button>
+                    <Clock 
+                        type="digital"  
+                        hourLimit={12}
+                        size="small"
+                    />
+                </Box>
+                <Nav direction="row">
+                    <Button href="#" margin="xsmall" label="Home"></Button>
+                    <Button alignSelf="end" margin="xsmall" size="xsmall" href="#" label="View Profiles"></Button>
+                </Nav>
+            </Box>
             </>
         }
         </Header>

@@ -4,7 +4,7 @@ import { Box, Footer, Text} from 'grommet';
 const PageFooter = () => {
     return ( 
         <>
-        <Footer background='background-contrast' border="true" justify='center' pad='small'>
+        <Footer background='background-contrast' border={[ { side: 'top'}, {side: 'vertical'}]} justify='center' pad='small'>
             <Text textAlign='center' size='xxsmall' margin="medium">
             © Alanna Celentano, 2020
             </Text>
