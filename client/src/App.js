@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Grommet, Clock } from 'grommet';
+import { Grommet } from 'grommet';
 import './App.css';
 import NavBar from './components/NavBar';
 import theme from './theme';
+import LandingPage from './components/pages/LandingPage';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PageFooter from './components/PageFooter';
 
 function App() {
-  const [user, setUser] = useState("Butter");
+  const [user, setUser] = useState(null);
   const [darkMode, setDarkMode] = useState("dark");
 
   const toggleDarkMode = () => {
@@ -14,10 +17,13 @@ function App() {
   }
 
   return (
-    <Grommet theme={theme} themeMode={darkMode}>
-    <NavBar user={user} toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-    <div>Welcome to Pet Pals</div>
-    </Grommet>
+    <Router>
+      <Grommet theme={theme} themeMode={darkMode}>
+        <NavBar user={user} toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+        <Route exact path="/" component={ LandingPage } />
+        <PageFooter />
+      </Grommet>
+    </Router>
   );
 }
 

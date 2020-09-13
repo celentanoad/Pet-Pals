@@ -8,7 +8,7 @@ import './NavBar.css';
 const NavBar = ({user, toggleDarkMode, darkMode}) => {
     return ( 
         <>
-        <Header pad="small" background="background-1">
+        <Header pad="small" background="background-contrast" border="true">
             {user ?
             <>
             <Box justify="start">
@@ -30,6 +30,10 @@ const NavBar = ({user, toggleDarkMode, darkMode}) => {
                                 icon={<MenuIcon color="brand" />}
                                 items={[
                                     {
+                                        label: <Box pad='small'>Dashboard</Box>,
+                                        href: "#"
+                                    },
+                                    {
                                         label: <Box pad='small'>My Profile</Box>,
                                         href: "#"
                                     },
@@ -47,8 +51,9 @@ const NavBar = ({user, toggleDarkMode, darkMode}) => {
                     ) : (
                         <>
                         <Box justify="end" direction="column">  
-                        <Button alignSelf="end" margin="medium" focusIndicator="false" size="xsmall" onClick={toggleDarkMode}>{darkMode==="dark" ? <Brightness3Icon /> : <WbSunnyIcon />}</Button>
+                        <Button alignSelf="end" margin="medium" size="xsmall" onClick={toggleDarkMode}>{darkMode==="dark" ? <Brightness3Icon /> : <WbSunnyIcon />}</Button>
                             <Box justify="end" direction="row" gap="medium">
+                                <Anchor href="#" label="Dashboard" />
                                 <Anchor href="#" label="My Profile" />
                                 <Anchor href="#" label="Friends" />
                                 <Anchor href="#" label="Meet New Pets" />

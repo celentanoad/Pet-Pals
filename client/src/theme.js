@@ -68,7 +68,8 @@ const theme = {
         "graph-1": {
           "light": "#7AC6C6",
           "dark": "#7AC6C6"
-        }
+        },
+        "focus": "background-contrast",
       },
       "font": {
         "family": "\"Raleway\"",
@@ -87,7 +88,8 @@ const theme = {
       },
       "selected": {
         "background": "selected-background",
-        "color": "selected-text"
+        "color": "selected-text",
+        "box-shadow": "none"
       },
       "control": {
         "border": {
@@ -97,7 +99,8 @@ const theme = {
       "drop": {
         "border": {
           "radius": "24px"
-        }
+        },
+        "shadowSize": "none"
       },
       "borderSize": {
         "xsmall": "1px",
@@ -108,7 +111,7 @@ const theme = {
       },
       "breakpoints": {
         "small": {
-          "value": 896,
+          "value": 600,
           "borderSize": {
             "xsmall": "1px",
             "small": "2px",
@@ -137,7 +140,7 @@ const theme = {
           }
         },
         "medium": {
-          "value": 1792
+          "value": 700
         },
         "large": {}
       },
@@ -181,7 +184,8 @@ const theme = {
       "padding": {
         "vertical": "5px",
         "horizontal": "26px"
-      }
+      },
+      "box-shadow": "none"
     },
     "checkBox": {
       "check": {
@@ -484,6 +488,11 @@ const theme = {
       }
     },
     "text": {
+        "xxsmall": {
+            "size": "12px",
+            "height": "20px",
+            "maxWidth": "300px"
+        },
       "xsmall": {
         "size": "18px",
         "height": "25px",
@@ -523,5 +532,5 @@ const theme = {
       }
     }
   }
-  
+
   export default theme;
