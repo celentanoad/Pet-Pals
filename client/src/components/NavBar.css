@@ -5,3 +5,7 @@
 .nav {
     width: 500px;
 }
+
+.home:hover{
+    border-bottom: grey 1px solid;
+}

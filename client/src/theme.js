@@ -376,7 +376,7 @@ const theme = {
           "medium": {
             "size": "34px",
             "height": "41px",
-            "maxWidth": "954px"
+            "maxWidth": "5000px"
           },
           "large": {
             "size": "41px",
