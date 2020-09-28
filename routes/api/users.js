@@ -6,7 +6,7 @@ const auth = require('../../config/auth');
 
 
 /* ----- Public Route ----- */
-// GET api/users
+// POST api/users
 router.post('/', [
     check('name', 'Name is required').not().isEmpty(),
     check('email', 'Please include a valid email address').isEmail(),
