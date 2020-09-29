@@ -9,6 +9,10 @@ import PageFooter from './components/PageFooter';
 import SignUpPage from './components/pages/SignUpPage';
 import LogInPage from './components/pages/LogInPage';
 
+//Combines react and redux
+import { Provider } from 'react-redux';
+import store from './store';
+
 function App() {
   const [user, setUser] = useState(null);
   const [darkMode, setDarkMode] = useState("dark");
@@ -19,6 +23,7 @@ function App() {
   }
 
   return (
+    <Provider store={store}>
     <Router>
       <Grommet theme={theme} themeMode={darkMode} >
         <NavBar user={user} toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
@@ -30,6 +35,7 @@ function App() {
         <PageFooter />
       </Grommet>
     </Router>
+    </Provider>
   );
 }
 
