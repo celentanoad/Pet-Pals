@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Anchor, Text, Box, Heading, Form, FormField, TextInput, Button, TextArea } from 'grommet';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setMessage } from '../../actions/message';
+import PropTypes from 'prop-types';
+import Message from '../Message';
 
-const SignUpPage = () => {
+const SignUpPage = ({ setMessage }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -15,9 +19,9 @@ const SignUpPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.passwordConfirm) {
-            console.log("Passwords must match!");
+            setMessage("Passwords must match!", 'error');
         } else {
-            console.log('Successfully created new user');
+            setMessage('Successfully created new user', 'success');
         }
     }
 
@@ -68,6 +72,7 @@ const SignUpPage = () => {
                     <TextInput name="passwordConfirm" type="password" />
                 </FormField>
                 <Box>
+                    <Message />
                     <Button 
                         margin={{"horizontal": "large", "vertical": "small"}} 
                         size="small" 
@@ -88,6 +93,15 @@ const SignUpPage = () => {
         </Box>
         </Box>
      );
-}
+};
+
+SignUpPage.propTypes = {
+    setMessage: PropTypes.func.isRequired
+};
+
+
  
-export default SignUpPage;
+export default connect(
+    null, 
+    { setMessage }
+)(SignUpPage);
