@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Anchor, Text, Box, Heading, Form, FormField, TextInput, Button, TextArea } from 'grommet';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setMessage } from '../../actions/message';
+import PropTypes from 'prop-types';
+import Message from '../Message';
 
-const LogInPage = () => {
+const LogInPage = ( {setMessage }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -12,7 +16,11 @@ const LogInPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Successfully logged in');
+        if (!formData.password) {
+            setMessage("Invalid credentials", 'error');
+        } else {
+            setMessage('Successfully logged in', 'success');
+        }
     }
 
 
@@ -59,9 +67,19 @@ const LogInPage = () => {
                     </Text>
                 </Box>
             </Form>
+            <Message />
         </Box>
         </Box>
      );
 }
  
-export default LogInPage;
+LogInPage.propTypes = {
+    setMessage: PropTypes.func.isRequired
+};
+
+
+ 
+export default connect(
+    null, 
+    { setMessage }
+)(LogInPage);

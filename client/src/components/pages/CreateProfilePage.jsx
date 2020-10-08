@@ -33,5 +33,4 @@ const CreateProfilePage = () => {
      );
 }
  
-export default CreateProfilePa
-ge;
+export default CreateProfilePage;
