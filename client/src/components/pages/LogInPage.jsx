@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Anchor, Text, Box, Heading, Form, FormField, TextInput, Button, TextArea } from 'grommet';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { setMessage } from '../../actions/message';
-import PropTypes from 'prop-types';
+
 import Message from '../Message';
 
-const LogInPage = ( {setMessage }) => {
+const LogInPage = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
+    });
+
+    const [message, setMessage] = useState({
+        text: '',
+        type: ''
     });
 
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
@@ -17,9 +20,9 @@ const LogInPage = ( {setMessage }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.password) {
-            setMessage("Invalid credentials", 'error');
+            setMessage({text: "Invalid credentials", type: 'error'});
         } else {
-            setMessage('Successfully logged in', 'success');
+            setMessage({text: 'Successfully logged in', type: 'success'});
         }
     }
 
@@ -67,19 +70,11 @@ const LogInPage = ( {setMessage }) => {
                     </Text>
                 </Box>
             </Form>
-            <Message />
+            <Message message={message}/>
         </Box>
         </Box>
      );
 }
- 
-LogInPage.propTypes = {
-    setMessage: PropTypes.func.isRequired
-};
-
 
  
-export default connect(
-    null, 
-    { setMessage }
-)(LogInPage);
+export default LogInPage;
