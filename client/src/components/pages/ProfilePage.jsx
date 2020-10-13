@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Heading, Form, FormField, TextInput, TextArea } from 'grommet';
 
-const CreateProfilePage = () => {
+const ProfilePage = () => {
+
+    const [editProfile, setEditProfile] = useState(false);
+    // check if profile page belongs to the current user:
+        // add Edit button, when clicked then set editProfile to true and overlay Edit Profile component
     return ( 
         <Box alignSelf="center" margin="small">
         <Heading level="3" textAlign="center" size="medium"> Sign Up </Heading>
@@ -33,4 +37,4 @@ const CreateProfilePage = () => {
      );
 }
  
-export default CreateProfilePage;
+export default ProfilePage;
