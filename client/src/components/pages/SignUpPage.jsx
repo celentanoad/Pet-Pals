@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Anchor, Text, Box, Heading, Form, FormField, TextInput, Button, TextArea } from 'grommet';
 import { Link } from 'react-router-dom';
 import Message from '../Message';
+import * as userAPI from '../../services/user-api';
 
-const SignUpPage = () => {
+const SignUpPage = (props) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -23,7 +24,13 @@ const SignUpPage = () => {
         if (formData.password !== formData.passwordConfirm) {
             setMessage({text: 'Passwords must match!', type: 'error'})
         } else {
-            setMessage({ text: 'Successfully created new user', type: 'success'})
+            try {
+                await userAPI.signup(formData);
+                props.handleSignupOrLogin();
+                props.history.push('/myprofile');
+            } catch (err) {
+                console.error(err)
+            }
         }
     }
 

@@ -6,11 +6,11 @@ const { check } = require('express-validator');
 
 /*  ----- Private Routes ----- */
 
-// GET api/profile/myprofile
+// GET api/profiles/myprofile
 // Get current user's profile
 router.get('/myprofile', auth, profileCtrl.getCurrentUserProfile);
 
-// POST api/profile
+// POST api/profiles
 // Create or update profile
 router.post('/', [auth, [
     check('animal', 'Animal field is required!')
@@ -18,28 +18,28 @@ router.post('/', [auth, [
         .isEmpty()
     ]], profileCtrl.createUserProfile);
 
-// DELETE api/profile/myprofile
+// DELETE api/profiles/myprofile
 // Delete current user's profile
 router.delete('/myprofile', auth, profileCtrl.deleteProfile);
 
-// POST api/profile/friends
+// POST api/profiles/friends
 // Add friend
 router.post('/friends/:id', auth, profileCtrl.addFriend);
 
-// DELETE api/profile/friends/:id
+// DELETE api/profiles/friends/:id
 // Remove friend
 router.delete('/friends/:id', auth, profileCtrl.removeFriend);
 
-// GET api/profile/friends
+// GET api/profiles/friends
 // Get all friends
 router.get('/friends', auth, profileCtrl.getAllFriends);
 
 /* ----- Public Routes ----- */
-// GET api/profile
+// GET api/profiles
 // Get all profiles
 router.get('/', profileCtrl.getAll);
 
-// GET api/profile/:id
+// GET api/profiles/:id
 // Get profile by user ID
 router.get('/:id', profileCtrl.getUserProfile);
 

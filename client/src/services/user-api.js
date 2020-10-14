@@ -1,6 +1,6 @@
 import tokenService from './tokenService';
 
-const BASE_URL = 'http://localhost:3001/api/users/';
+const BASE_URL = '/api/users';
 
 
 export function signup(user) {
@@ -18,4 +18,8 @@ export function signup(user) {
     .then(({token}) => tokenService.setToken(token));
     // The above could have been written as
     //.then((token) => token.token);
+  }
+
+  export function getUser() {
+    return tokenService.getUserFromToken();
   }

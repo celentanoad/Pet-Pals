@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grommet, Main } from 'grommet';
 import './App.css';
 import NavBar from './components/NavBar';
@@ -12,6 +12,8 @@ import ProfilePage from './components/pages/ProfilePage';
 import FriendsListPage from './components/pages/FriendsListPage';
 import ProfileListPage from './components/pages/ProfileListPage';
 import Dashboard from './components/pages/Dashboard';
+import * as userAPI from './services/user-api';
+import * as profileAPI from './services/profile-api';
 
 //Combines react and redux
 import { Provider } from 'react-redux';
@@ -20,11 +22,30 @@ import store from './store';
 function App() {
   const [user, setUser] = useState(null);
   const [darkMode, setDarkMode] = useState("dark");
+  const [profiles, setProfiles] = useState([]);
 
   const toggleDarkMode = () => {
     if (darkMode === "dark") setDarkMode("light");
     else setDarkMode("dark");
   }
+
+  const handleSignUpOrLogin = async () => {
+    const currentUser = await userAPI.getUser();
+    setUser(currentUser);
+  }
+  
+  useEffect(() => {
+    fetch("http://localhost:3001/api/profiles")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setProfiles(result);
+        },
+        (error) => {
+          console.error(error)
+        }
+      )
+  }, [])
 
   return (
     <Provider store={store}>
@@ -39,7 +60,7 @@ function App() {
         <Switch>
           {!user ?
           <>
-          <Route exact path="/signup" component={SignUpPage} />
+          <Route exact path="/signup" component={SignUpPage} handleSignUpOrLogin={handleSignUpOrLogin} />
           <Route exact path="/login" component={LogInPage} />
           </>
           : <Redirect to="/" />}
@@ -53,7 +74,12 @@ function App() {
           : <Redirect to="/login" />}
           </Switch>
           <Switch>
-          <Route exact path="/profiles" component={ProfileListPage} />
+          <Route 
+            exact path="/profiles" 
+            render={() => (
+              <ProfileListPage profiles={profiles} user={user} />
+            )} 
+          />
         </Switch>
         <PageFooter />
       </Grommet>
