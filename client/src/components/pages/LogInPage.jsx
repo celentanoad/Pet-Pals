@@ -3,8 +3,9 @@ import { Anchor, Text, Box, Heading, Form, FormField, TextInput, Button, TextAre
 import { Link } from 'react-router-dom';
 
 import Message from '../Message';
+import * as userAPI from '../../services/user-api';
 
-const LogInPage = () => {
+const LogInPage = (props) => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -19,10 +20,12 @@ const LogInPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.password) {
-            setMessage({text: "Invalid credentials", type: 'error'});
-        } else {
-            setMessage({text: 'Successfully logged in', type: 'success'});
+        try {
+            await userAPI.login(formData);
+            props.handleSignUpOrLogin();
+            props.history.push('/');
+        } catch {
+            setMessage({text: 'Invalid credentials', type: 'error'})
         }
     }
 

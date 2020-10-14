@@ -18,7 +18,7 @@ const NavBar = ({user, toggleDarkMode, darkMode}) => {
                     hourLimit={12}
                     size="small"
                 />
-            <p>Hello {user}!</p>
+            <p>Hello {user.name}!</p>
             
             </Box>
             <ResponsiveContext.Consumer>

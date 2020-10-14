@@ -30,8 +30,20 @@ function App() {
   }
 
   const handleSignUpOrLogin = async () => {
-    const currentUser = await userAPI.getUser();
-    setUser(currentUser);
+    const id = await userAPI.getUser();
+    // Below code doesn't work- currently user is set to userID from token
+    fetch(`http://localhost:3001/api/auth/${id.id}`, {
+      method: 'GET'
+    })
+      .then(res => res.json())
+      .then (
+        (result) => {
+          setUser(result);
+        },
+        (error) => {
+          console.error(error)
+        }
+      )
   }
   
   useEffect(() => {
@@ -60,8 +72,17 @@ function App() {
         <Switch>
           {!user ?
           <>
-          <Route exact path="/signup" component={SignUpPage} handleSignUpOrLogin={handleSignUpOrLogin} />
-          <Route exact path="/login" component={LogInPage} />
+          <Route 
+            exact path="/signup"
+            render={({ history }) => (
+              <SignUpPage history={history} handleSignUpOrLogin={handleSignUpOrLogin} />
+            )}
+          />
+          <Route exact path="/login" 
+            render={({ history}) => (
+              <LogInPage history={history} handleSignUpOrLogin={handleSignUpOrLogin} />
+            )}
+          />
           </>
           : <Redirect to="/" />}
         </Switch>

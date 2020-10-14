@@ -26,7 +26,7 @@ const SignUpPage = (props) => {
         } else {
             try {
                 await userAPI.signup(formData);
-                props.handleSignupOrLogin();
+                props.handleSignUpOrLogin();
                 props.history.push('/myprofile');
             } catch (err) {
                 console.error(err)

@@ -4,9 +4,6 @@ import { Box, Text, ResponsiveContext, Grid } from 'grommet'
 import * as profileAPI from '../../services/profile-api';
 
 const ProfileListPage = ({user, profiles}) => {
-
-   
-
     const size = useContext(ResponsiveContext);
     return ( 
         <div align="center">
@@ -18,6 +15,9 @@ const ProfileListPage = ({user, profiles}) => {
                     columns={size !== 'small' ? ["30%", "30%", "30%"] : '100%' } 
                     gap="small"
                 >
+    {/* If user is logged in, 
+        only show profiles that are not in friends list
+    */}
                     {profiles.map(profile => {
                         return <ProfileCard profile={profile} user={user} />
                     })}
