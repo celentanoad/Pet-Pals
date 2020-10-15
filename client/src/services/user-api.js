@@ -35,5 +35,9 @@ export function signup(user) {
   }
 
   export function getUser() {
-    return tokenService.getUserFromToken();
+    let id = tokenService.getUserFromToken();
+    return fetch(`http://localhost:3001/api/auth/${id.id}`, {
+      method: 'GET'
+    })
+    .then(res => res.json())
   }

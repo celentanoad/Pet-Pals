@@ -21,6 +21,7 @@ import store from './store';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [darkMode, setDarkMode] = useState("dark");
   const [profiles, setProfiles] = useState([]);
 
@@ -30,21 +31,15 @@ function App() {
   }
 
   const handleSignUpOrLogin = async () => {
-    const id = await userAPI.getUser();
-    // Below code doesn't work- currently user is set to userID from token
-    fetch(`http://localhost:3001/api/auth/${id.id}`, {
-      method: 'GET'
-    })
-      .then(res => res.json())
-      .then (
-        (result) => {
-          setUser(result);
-        },
-        (error) => {
-          console.error(error)
-        }
-      )
+    const user = await userAPI.getUser();
+    setUser(user);
   }
+  
+  const handleGetProfile = async (id) => {
+    const userProfile = await profileAPI.getCurrentUserProfile(id);
+    setProfile(userProfile);
+  }
+  
   
   useEffect(() => {
     fetch("http://localhost:3001/api/profiles")
@@ -89,7 +84,11 @@ function App() {
         <Switch>
           {user ?
           <>
-            <Route exact path="/myprofile" component={ProfilePage} />
+            <Route exact path="/myprofile" 
+              render={({ history}) => (
+                <ProfilePage history={history} handleGetProfile={handleGetProfile} user={user} />
+              )}
+            />
             <Route exact path="/friends" component={FriendsListPage} />
           </>
           : <Redirect to="/login" />}

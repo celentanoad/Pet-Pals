@@ -13,7 +13,7 @@ const LandingPage = () => {
                          <CardHeader alignSelf="center">
                             <Heading>Pet Pals</Heading>
                         </CardHeader>
-                        <CardBody pad="medium">Pet Pals is a social media site to help pets connect around the world! Log in or sign up below, or click on "Profiles" to see the other pets that are using this site!</CardBody>
+                        <CardBody pad="medium">Pet Pals is a social media site to help pets connect around the world! Log in or sign up below, or click on "View Profiles" to see the other pets that are using this site!</CardBody>
                         <CardFooter>
                             <Link to="/login">
                                 <Button hoverIndicator="text" label="Log In"></Button>
@@ -29,7 +29,7 @@ const LandingPage = () => {
                         <CardHeader alignSelf="center">
                             <Heading>Pet Pals</Heading>
                         </CardHeader>
-                        <CardBody pad="medium">Pet Pals is a social media site to help pets connect around the world! Log in or sign up below, or click on "Profiles" to see the other pets that are using this site!</CardBody>
+                        <CardBody pad="medium">Pet Pals is a social media site to help pets connect around the world! Log in or sign up below, or click on "View Profiles" to see the other pets that are using this site!</CardBody>
                         <CardFooter>
                             <Link to="/login">
                                 <Button hoverIndicator="text" label="Log In"></Button>
