@@ -36,8 +36,8 @@ function App() {
   }
   
   const handleGetProfile = async (id) => {
-    const userProfile = await profileAPI.getCurrentUserProfile(id);
-    setProfile(userProfile);
+    const userProfile = await profileAPI.getProfile(id);
+    return userProfile;
   }
   
   
