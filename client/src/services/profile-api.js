@@ -37,3 +37,15 @@ export function createOrEditProfile(data) {
   return fetch('http://localhost:3001/api/profiles', options)
     .then(res => res.json());
 }
+
+export function addFriend(id) {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer ' + tokenService.getToken()
+    }
+  };
+  return fetch('http://localhost:3001/api/profiles/friends/' + id, options)
+    .then(res => res.json());
+}

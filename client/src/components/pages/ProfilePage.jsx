@@ -101,9 +101,9 @@ const ProfilePage = ({user, handleGetProfile}) => {
         <Heading level="3" textAlign="center" size="medium"> Profile </Heading>
         <Card>
             <CardHeader>
-                {profile.user.name ?
+                {/* {profile.user.name ?
                     profile.user.name : <></>
-                }
+                } */}
             </CardHeader>
             <CardBody>
                 <Image src={profile.avatar}></Image>

@@ -60,7 +60,10 @@ function App() {
       <Grommet theme={theme} themeMode={darkMode} >
         <NavBar user={user} toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         {user ?
-        <Route exact path="/" component={Dashboard} />
+        <Route exact path="/"
+           render={({ history}) => (
+             <Dashboard history={history}/>
+           )} />
         :
         <Route exact path="/" component={LandingPage} />
         }
