@@ -23,3 +23,16 @@ export function addNew(data) {
       return fetch('http://localhost:3001/api/posts', options)
         .then(res => res.json());
   }
+
+  export function likePost(id) {
+      // PUT to api/posts/like/:id
+      const options = {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ' + tokenService.getToken()
+        },
+      };
+      return fetch('http://localhost:3001/api/posts/like/' + id, options)
+        .then(res => res.json());
+  }
