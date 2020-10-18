@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FriendsListPage = () => {
+const FriendsListPage = ({profile}) => {
     return ( 
         <div>
             <p>List Friends here:</p>

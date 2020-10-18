@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Text, Card, CardHeader, CardBody, CardFooter, Button, Box} from 'grommet';
 import { Favorite } from 'grommet-icons';
 import * as profileAPI from '../services/profile-api';
@@ -6,10 +6,11 @@ import * as profileAPI from '../services/profile-api';
 
 const ProfileCard = ({profile, user}) => {
 
+    const [friend, setFriend] = useState(false)
+
     const addFriend = async (id) => {
-        console.log(profile.user)
-        let friend = await profileAPI.addFriend(id);
-        console.log(friend)
+        await profileAPI.addFriend(id);
+        setFriend(true)
     }
 
     return ( 
@@ -26,7 +27,10 @@ const ProfileCard = ({profile, user}) => {
             </CardBody>
             <CardFooter background="background-contrast" pad="small">
                 {user ?
-                <Button onClick={() => addFriend(profile.user._id)} hoverIndicator> <Favorite color="red" />Request Friendship</Button>
+                    !friend ?
+                    <Button onClick={() => addFriend(profile.user._id)} hoverIndicator> <Favorite color="red" />Request Friendship</Button>
+                    :
+                    <Box><Favorite color="red" primary /> Friend Added!</Box>
                 :
                 <></>
                 }

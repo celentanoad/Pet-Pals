@@ -33,12 +33,22 @@ function App() {
   const handleSignUpOrLogin = async () => {
     const user = await userAPI.getUser();
     setUser(user);
+    handleGetProfile(user._id);
   }
   
   const handleGetProfile = async (id) => {
     const userProfile = await profileAPI.getProfile(id);
-    return userProfile;
+    setProfile(userProfile);
   }
+
+  const addOrUpdateProfile = async (data) => {
+    try {
+      const newProfile = await profileAPI.createOrEditProfile(data);
+      setProfile(newProfile);
+  } catch (err) {
+      console.error(err)
+  }
+}
   
   
   useEffect(() => {
@@ -89,7 +99,7 @@ function App() {
           <>
             <Route exact path="/myprofile" 
               render={({ history}) => (
-                <ProfilePage history={history} handleGetProfile={handleGetProfile} user={user} />
+                <ProfilePage history={history} profile={profile} user={user} addOrUpdateProfile={addOrUpdateProfile}/>
               )}
             />
             <Route exact path="/friends" component={FriendsListPage} />
