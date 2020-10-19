@@ -9,7 +9,7 @@ export function addNew(data) {
       },
       body: JSON.stringify(data)
     };
-    return fetch('http://localhost:3001/api/posts', options)
+    return fetch('/api/posts', options)
       .then(res => res.json());
   }
 
@@ -20,7 +20,7 @@ export function addNew(data) {
             'Authorization': 'Bearer ' + tokenService.getToken()
           }
       };
-      return fetch('http://localhost:3001/api/posts', options)
+      return fetch('/api/posts', options)
         .then(res => res.json());
   }
 
@@ -33,7 +33,7 @@ export function addNew(data) {
           'Authorization': 'Bearer ' + tokenService.getToken()
         },
       };
-      return fetch('http://localhost:3001/api/posts/like/' + id, options)
+      return fetch('/api/posts/like/' + id, options)
         .then(res => res.json());
   }
 
@@ -46,6 +46,6 @@ export function addNew(data) {
           },
           body: JSON.stringify(comment)
       };
-      return fetch(`http://localhost:3001/api/posts/comment/${id}`, options)
+      return fetch(`/api/posts/comment/${id}`, options)
         .then(res => res.json());
   }

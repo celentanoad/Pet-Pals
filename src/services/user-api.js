@@ -1,6 +1,6 @@
 import tokenService from './tokenService';
 
-const BASE_URL = 'http://localhost:3001/api/users';
+const BASE_URL = 'api/users';
 
 
 export function signup(user) {
@@ -21,7 +21,7 @@ export function signup(user) {
   }
 
   export function login(creds) {
-    return fetch('http://localhost:3001/api/auth', {
+    return fetch('/api/auth', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify(creds)
@@ -40,7 +40,7 @@ export function signup(user) {
 
   export function getUser() {
     let id = tokenService.getUserFromToken();
-    return fetch(`http://localhost:3001/api/auth/${id.id}`, {
+    return fetch(`/api/auth/${id.id}`, {
       method: 'GET'
     })
     .then(res => res.json())

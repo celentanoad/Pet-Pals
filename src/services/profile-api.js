@@ -1,8 +1,5 @@
 import tokenService from "./tokenService";
 
-const BASE_URL = '/api/profiles';
-
-
 export function getProfile(id) {
   const options = {
     method: 'GET',
@@ -10,7 +7,7 @@ export function getProfile(id) {
       'Authorization' : 'Bearer' + tokenService.getToken()
     }
   };
-  return fetch('http://localhost:3001/api/profiles/' + id , options, {mode: "cors"})
+  return fetch('/api/profiles/' + id , options, {mode: "cors"})
   .then(res => res.json())
 }
 
@@ -21,7 +18,7 @@ export function getCurrentUserProfile() {
       'Authorization' : 'Bearer' + tokenService.getToken()
     }
   };
-  return fetch('http://localhost:3001/api/profiles/myprofile', options)
+  return fetch('/api/profiles/myprofile', options)
   .then(res => res.json())
 }
 
@@ -34,7 +31,7 @@ export function createOrEditProfile(data) {
     },
     body: JSON.stringify(data)
   };
-  return fetch('http://localhost:3001/api/profiles', options)
+  return fetch('/api/profiles', options)
     .then(res => res.json());
 }
 
@@ -46,6 +43,6 @@ export function addFriend(id) {
       'Authorization': 'Bearer ' + tokenService.getToken()
     }
   };
-  return fetch('http://localhost:3001/api/profiles/friends/' + id, options)
+  return fetch('/api/profiles/friends/' + id, options)
     .then(res => res.json());
 }

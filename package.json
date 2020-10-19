@@ -2,6 +2,7 @@
   "name": "pet-pals",
   "version": "1.0.0",
   "description": "Social network for pets",
+  "main": "server.js",
   "scripts": {
     "server": "nodemon server",
     "start": "react-scripts start",
