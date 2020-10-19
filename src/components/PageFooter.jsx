@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Footer, Text} from 'grommet';
+import { Box, Anchor, Footer, Text} from 'grommet';
 
 const PageFooter = () => {
     return ( 
@@ -9,7 +9,7 @@ const PageFooter = () => {
             © Alanna Celentano, 2020
             </Text>
             <Text textAlign='center' size='xxsmall' margin="medium">
-                View the Source Code
+                <Anchor href="https://github.com/celentanoad/Pet-Pals">View the Source Code</Anchor>
             </Text>
         </Footer>
         </>

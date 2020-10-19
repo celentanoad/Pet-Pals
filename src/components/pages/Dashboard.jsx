@@ -3,13 +3,17 @@ import { Heading, TextInput, Button, Form, FormField, CardHeader } from 'grommet
 import { useEffect } from 'react';
 import * as postAPI from '../../services/post-api';
 import Post from '../Post';
-
+import Message from '../Message';
 
 const Dashboard = (props) => {
     const [posts, setPosts] = useState([]);
     const [newPost, setNewPost] = useState({
         text: ''
     });
+    const [message, setMessage] = useState({
+        text: '',
+        type: ''
+    })
 
     // useEffect to get all posts from user and friends
     useEffect(() => {
@@ -29,6 +33,7 @@ const Dashboard = (props) => {
       }, [])
 
     const handleAddPost = async () => {
+        if (!newPost) return setMessage({ text: 'Cannot post a blank update!', type: 'error' })
         let post = await postAPI.addNew(newPost);
         setPosts(...posts, post);
         props.history.push('/');
@@ -51,6 +56,7 @@ const Dashboard = (props) => {
                 </FormField>
                 <Button type="submit" label="Add New Post"></Button>
             </Form>
+            <Message message={message} />
             {posts.length ?
             posts.map(post => {
                 return <Post 

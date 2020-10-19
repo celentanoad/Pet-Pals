@@ -15,12 +15,18 @@ const ProfileListPage = ({user, profiles}) => {
                     columns={size !== 'small' ? ["30%", "30%", "30%"] : '100%' } 
                     gap="small"
                 >
-    {/* If user is logged in, 
-        only show profiles that are not in friends list
-    */}
-                    {profiles.map(profile => {
+                    { user ? 
+                    profiles.map(profile => {
+                        profile.friends.map(friend => {
+                            if (friend === user._id) return <></>
+                        })
                         return <ProfileCard profile={profile} user={user} />
-                    })}
+                    })
+                    :
+                    profiles.map(profile => {
+                        return <ProfileCard profile={profile} user={user} />
+                    })
+                }
                 </Grid>
             </Box>
         </div>

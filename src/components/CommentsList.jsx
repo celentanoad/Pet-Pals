@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 import { Text, Form, Box, Button, FormField, TextInput, Collapsible } from 'grommet';
 import Comment from './Comment';
 import { Add, Subtract } from 'grommet-icons';
+import Message from './Message';
 
 const CommentsList = ({comments, id, handleAddComment}) => {
 
     const [commentText, setCommentText] = useState({
         text: ''
     });
-    const [showForm, setShowForm] = useState(false)
+    const [showForm, setShowForm] = useState(false);
+    const [message, setMessage] = useState({
+        text: '',
+        type: ''
+    });
 
     const onChange = e => setCommentText({[e.target.name]: e.target.value});
 
     const handleSubmit = () => {
+        if (!commentText) return setMessage({text: 'You must enter a comment!', type: 'error'});
         handleAddComment(commentText, id);
         setCommentText('');
         setShowForm(false);
@@ -48,6 +54,7 @@ const CommentsList = ({comments, id, handleAddComment}) => {
                         </FormField>
                         <Button type="submit" label="Add Comment"></Button>
                     </Form>
+                    <Message message={message} />
                 </Box>
             </Collapsible>
         </Box>

@@ -119,7 +119,7 @@ function App() {
           <Route 
             exact path="/profiles" 
             render={() => (
-              <ProfileListPage profiles={profiles} user={user} />
+              <ProfileListPage profiles={profiles} userProfile={profile} user={user} />
             )} 
           />
         </Switch>

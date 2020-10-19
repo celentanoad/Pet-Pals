@@ -12,7 +12,7 @@ const Post = ({post}) => {
 
     const handleLikePost = async (id) => {
         const updatedPost = await postAPI.likePost(id);
-        setLikes(updatedPost.likes.length)
+        setLikes(updatedPost.likes.length);
     }
 
     const handleCommentVisbility = () => {
@@ -21,10 +21,8 @@ const Post = ({post}) => {
     }
 
     const handleAddComment = async (comment, id) => {
-        console.log(post.comments)
         const newComment = await postAPI.addComment(comment, id);
-        console.log(newComment)
-        setComments(...comments, newComment);
+        setComments(comments => [...comments, newComment]);
     }
 
     return ( 
