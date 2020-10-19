@@ -17,9 +17,9 @@ const ProfileListPage = ({user, profiles}) => {
                 >
                     { user ? 
                     profiles.map(profile => {
-                        profile.friends.map(friend => {
+                        for (let friend of profile.friends) {
                             if (friend === user._id) return <></>
-                        })
+                        }     
                         return <ProfileCard profile={profile} user={user} />
                     })
                     :
