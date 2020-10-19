@@ -11,9 +11,6 @@ const FriendsListPage = ({profile}) => {
             :
             <p>You don't have any friends </p> 
             }
-            <p>List Friends here:</p>
-            <p>Card components w/ Name, Avatar, and Type of Animal</p>
-            <p>"View Profile" button and "Remove Friend" button</p>
         </div>
      );
 }

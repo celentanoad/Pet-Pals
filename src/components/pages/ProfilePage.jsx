@@ -1,31 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Card, CardHeader, Image, Button, Heading, Form, FormField, TextInput, TextArea, CardBody } from 'grommet';
-import * as profileAPI from '../../services/profile-api';
-import Message from '../Message';
 import { Divider } from '@material-ui/core';
 
 const ProfilePage = ({user, profile, addOrUpdateProfile, handleGetProfile}) => {
 
     const [editProfile, setEditProfile] = useState(false);
-    // const [profile, setProfile] = useState(null);
     const [formData, setFormData] = useState({
         avatar: '',
         bio: '',
         animal: '',
         breed: ''
     });
-
-    // useEffect(() => {
-    //     handleGetProfile(user._id)
-    //       .then(
-    //         (result) => {
-    //             if (result) setProfile(result);
-    //         },
-    //         (error) => {
-    //           console.error(error)
-    //         }
-    //       )
-    //   }, [])
 
       const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
@@ -35,8 +20,6 @@ const ProfilePage = ({user, profile, addOrUpdateProfile, handleGetProfile}) => {
         addOrUpdateProfile(formData);
         setEditProfile(false);
     }
-    // check if profile page belongs to the current user:
-        // add Edit button, when clicked then set editProfile to true and overlay Edit Profile component
     return ( 
         <div>
 
@@ -82,7 +65,6 @@ const ProfilePage = ({user, profile, addOrUpdateProfile, handleGetProfile}) => {
             textAlign="center"
             padding="small"
             align="center" 
-            // label="Submit and View Profile" 
             type="submit"
             primary 
             color="brand"
@@ -96,9 +78,6 @@ const ProfilePage = ({user, profile, addOrUpdateProfile, handleGetProfile}) => {
         <Heading level="3" textAlign="center" size="medium"> My Profile </Heading>
         <Card width="medium" align="center" pad="small">
             <CardHeader>
-                {/* {profile.user.name ?
-                    profile.user.name : <></>
-                } */}
             </CardHeader>
             <CardBody height="small" pad="small">
                 <Image src={profile.avatar} fit="contain" />

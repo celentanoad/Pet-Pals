@@ -57,7 +57,7 @@ function App() {
   
   
   useEffect(() => {
-    fetch("http://localhost:3001/api/profiles")
+    fetch("api/profiles")
       .then(res => res.json())
       .then(
         (result) => {
