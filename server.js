@@ -16,6 +16,10 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/profiles', require('./routes/api/profiles'));
 
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(_dirname, 'build', 'index.html'))
+});
+
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
