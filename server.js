@@ -16,7 +16,7 @@ app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/profiles', require('./routes/api/profiles'));
 
 app.get('/*', function(req, res) {
-    res.sendFile(path.join(_dirname, 'build', 'index.html'))
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
 });
 
 const PORT = process.env.PORT || 3001;
