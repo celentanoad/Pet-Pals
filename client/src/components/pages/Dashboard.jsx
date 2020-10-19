@@ -30,7 +30,8 @@ const Dashboard = (props) => {
 
     const handleAddPost = async () => {
         let post = await postAPI.addNew(newPost);
-        setPosts(...posts, post);
+        setPosts(posts => [...posts, post]);
+        console.log(posts);
         props.history.push('/');
     }
 
@@ -51,7 +52,7 @@ const Dashboard = (props) => {
                 </FormField>
                 <Button type="submit" label="Add New Post"></Button>
             </Form>
-            {posts ?
+            {posts.length ?
             posts.map(post => {
                 return <Post 
                     id={post.id}

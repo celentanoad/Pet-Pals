@@ -34,6 +34,10 @@ export function signup(user) {
     .then(({token}) => tokenService.setToken(token));
   }
 
+  export function logout() {
+    tokenService.removeToken();
+  }
+
   export function getUser() {
     let id = tokenService.getUserFromToken();
     return fetch(`http://localhost:3001/api/auth/${id.id}`, {

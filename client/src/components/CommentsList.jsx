@@ -18,7 +18,7 @@ const CommentsList = ({comments, id, handleAddComment}) => {
         setShowForm(false);
     }
     return ( 
-        <Box background='background-contrast'>
+        <Box background='text'>
             {comments.length ?
                 comments.map(comment => {
                     return <Comment comment={comment} />
@@ -36,18 +36,19 @@ const CommentsList = ({comments, id, handleAddComment}) => {
             </Button>
             }
             <Collapsible open={showForm}>
-            <Form onSubmit={handleSubmit} background="white">
-                <FormField
-                    name="text"
-                    value={commentText}
-                    onChange={e => onChange(e)}
-                    Required
-                >
-                    <TextInput name="text"></TextInput>
-                </FormField>
-                <Button type="submit" label="Add Comment"></Button>
-
-            </Form>
+                <Box margin={{top: 'small'}}>
+                    <Form onSubmit={handleSubmit}>
+                        <FormField
+                            name="text"
+                            value={commentText}
+                            onChange={e => onChange(e)}
+                            Required
+                        >
+                            <TextInput name="text"></TextInput>
+                        </FormField>
+                        <Button type="submit" label="Add Comment"></Button>
+                    </Form>
+                </Box>
             </Collapsible>
         </Box>
         

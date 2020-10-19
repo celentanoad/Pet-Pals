@@ -35,6 +35,11 @@ function App() {
     setUser(user);
     handleGetProfile(user._id);
   }
+
+  const handleLogOut = () => {
+      userAPI.logout();
+      setUser(null);
+  }
   
   const handleGetProfile = async (id) => {
     const userProfile = await profileAPI.getProfile(id);
@@ -68,7 +73,7 @@ function App() {
     <Provider store={store}>
     <Router>
       <Grommet theme={theme} themeMode={darkMode} >
-        <NavBar user={user} toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+        <NavBar user={user} toggleDarkMode={toggleDarkMode} darkMode={darkMode} handleLogOut={handleLogOut}/>
         {user ?
         <Route exact path="/"
            render={({ history}) => (
@@ -102,7 +107,11 @@ function App() {
                 <ProfilePage history={history} profile={profile} user={user} addOrUpdateProfile={addOrUpdateProfile}/>
               )}
             />
-            <Route exact path="/friends" component={FriendsListPage} />
+            <Route exact path="/friends" 
+              render={({ history }) => (
+                <FriendsListPage history={history} profile={profile} />
+              )}
+            />
           </>
           : <Redirect to="/login" />}
           </Switch>

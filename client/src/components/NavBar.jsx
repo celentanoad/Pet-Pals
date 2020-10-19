@@ -6,7 +6,7 @@ import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import './NavBar.css';
 import { Link } from 'react-router-dom';
 
-const NavBar = ({user, toggleDarkMode, darkMode}) => {
+const NavBar = ({user, toggleDarkMode, darkMode, handleLogOut}) => {
     return ( 
         <>
         <Header pad="small" background="background-contrast" border="true">
@@ -19,7 +19,7 @@ const NavBar = ({user, toggleDarkMode, darkMode}) => {
                     size="small"
                 />
             <p>Hello {user.name}!</p>
-            
+            <Button onClick={() => handleLogOut()} label="Log Out"></Button>
             </Box>
             <ResponsiveContext.Consumer>
                 {size =>
