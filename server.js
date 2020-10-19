@@ -8,6 +8,7 @@ app.use(cors())
 
 //Middleware
 app.use(express.json({ extended: false }));
+app.use(express.static(path.join(__dirname, 'build')))
 
 // API routes
 app.use('/api/users', require('./routes/api/users'));
