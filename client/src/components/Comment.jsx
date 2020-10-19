@@ -13,8 +13,6 @@ const Comment = ({comment}) => {
                 {comment.text}
             </Text>
         </Box>
-        <div>
-        </div>
         </>
      );
 }

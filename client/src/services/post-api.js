@@ -36,3 +36,16 @@ export function addNew(data) {
       return fetch('http://localhost:3001/api/posts/like/' + id, options)
         .then(res => res.json());
   }
+
+  export function addComment(comment, id) {
+      const options = {
+          method: 'PUT',
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer ' + tokenService.getToken()
+          },
+          body: JSON.stringify(comment)
+      };
+      return fetch(`http://localhost:3001/api/posts/comment/${id}`, options)
+        .then(res => res.json());
+  }

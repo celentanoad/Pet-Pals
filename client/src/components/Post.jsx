@@ -8,17 +8,23 @@ const Post = ({post}) => {
 
     const [likes, setLikes] = useState(post.likes.length)
     const [commentVisibility, setCommentVisibility] = useState(false);
-
+    const [comments, setComments] = useState(post.comments);
 
     const handleLikePost = async (id) => {
         const updatedPost = await postAPI.likePost(id);
-        console.log(updatedPost.comments)
         setLikes(updatedPost.likes.length)
     }
 
     const handleCommentVisbility = () => {
         if (commentVisibility) setCommentVisibility(false);
         else setCommentVisibility(true)
+    }
+
+    const handleAddComment = async (comment, id) => {
+        console.log(post.comments)
+        const newComment = await postAPI.addComment(comment, id);
+        console.log(newComment)
+        setComments(...comments, newComment);
     }
 
     return ( 
@@ -41,15 +47,13 @@ const Post = ({post}) => {
                 </Button>
                 </Box>
             </CardBody>
-            
                 {commentVisibility ? 
                   <Button size="xsmall" margin={{vertical: 'small'}} label="Hide Comments" onClick={() => handleCommentVisbility()}></Button>
                   :
                   <Button size="xsmall" margin={{vertical: 'small'}} label="Show Comments" onClick={() => handleCommentVisbility()}></Button>
                 }
-           
             <Collapsible open={commentVisibility} background="background-contrast">
-                <CommentsList comments={post.comments} />
+                <CommentsList comments={comments} handleAddComment={handleAddComment} id={post._id}/>
             </Collapsible>
         </Card>
         </div>

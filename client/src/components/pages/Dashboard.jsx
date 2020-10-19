@@ -29,9 +29,7 @@ const Dashboard = (props) => {
       }, [])
 
     const handleAddPost = async () => {
-        console.log(newPost)
         let post = await postAPI.addNew(newPost);
-        console.log(post)
         setPosts(...posts, post);
         props.history.push('/');
     }
