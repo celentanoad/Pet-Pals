@@ -3,6 +3,7 @@ require('dotenv').config();
 require('./config/database');
 const app = express();
 const cors = require('cors');
+const path = require('path');
 app.use(cors())
 
 //Middleware
