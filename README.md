@@ -1,5 +1,7 @@
 # Pet Pals
 
+Pet Pals is a social media site to help pets connect around the world!
+
 ## Getting Started
 Click the link below to view the deployed site:
 https://pet-pals-project0.herokuapp.com/
